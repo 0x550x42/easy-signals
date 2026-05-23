@@ -1,13 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personal Finance Dashboard</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Should I buy this now? — Indian Market Signals</title>
+  <meta name="description" content="Real-time Indian market signals. Simple YES / NO / WAIT answers to your financial decisions." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div>
+        <h1>Should I buy / do this now?</h1>
+        <p id="last-updated" class="subtitle">Loading signals…</p>
+      </div>
+      <button id="refresh-btn" onclick="loadSignals()" aria-label="Refresh signals">
+        <svg id="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 4v6h-6M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        <span class="refresh-label">Refresh</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div id="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Checking today's signals…</p>
+      <p class="loading-sub">This takes a few seconds</p>
+    </div>
+
+    <div id="error" class="error-state hidden">
+      <p id="error-msg">Unable to load signals.</p>
+      <button onclick="loadSignals()">Try again</button>
+    </div>
+
+    <div id="content" class="hidden">
+      <div id="best-bets"></div>
+      <div id="signal-grid"></div>
+      <p class="disclaimer">These are signals, not financial advice — use as a starting point only.</p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
 </html>

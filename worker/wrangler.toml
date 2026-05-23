@@ -1,0 +1,24 @@
+name = "signals-worker"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+# ─── Cron schedule ────────────────────────────────────────────────
+# Runs every 6 hours: 12am, 6am, 12pm, 6pm IST
+# Change to "0 */2 * * *" for every 2 hours, etc.
+[triggers]
+crons = ["0 */6 * * *"]
+
+# ─── KV namespace ─────────────────────────────────────────────────
+# Create with: npx wrangler kv:namespace create SIGNALS_KV
+# Paste the returned id below
+[[kv_namespaces]]
+binding = "SIGNALS_KV"
+id      = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# ─── Secrets (never put real values here) ─────────────────────────
+# Set each with: npx wrangler secret put SECRET_NAME
+#
+#   npx wrangler secret put LLM_PROVIDER   → openai | claude | gemini
+#   npx wrangler secret put LLM_API_KEY    → your API key
+#   npx wrangler secret put REFRESH_TOKEN  → any random string you choose
+#                                            (used to manually seed KV after deploy)
