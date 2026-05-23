@@ -1,6 +1,6 @@
 // ─── Config ───────────────────────────────────────────────────────
 // Replace with your deployed Cloudflare Worker URL
-const WORKER_URL = 'https://signals-worker.YOUR-SUBDOMAIN.workers.dev/signals'
+const WORKER_URL = 'https://signals-worker.ud0103.workers.dev/signals'
 
 // ─── Signal metadata ──────────────────────────────────────────────
 const SIGNAL_CONFIG = {
