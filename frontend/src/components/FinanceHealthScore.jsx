@@ -7,130 +7,89 @@ export default function FinanceHealthScore({ onDataChange }) {
     savingsBuffer: '',
     debt: '',
   })
-
   const [score, setScore] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     const updated = { ...finance, [name]: value }
     setFinance(updated)
-    onDataChange(updated)
+    onDataChange?.(updated)
     calculateScore(updated)
   }
 
   const calculateScore = (data) => {
     if (!data.annualIncome || !data.annualExpenses) return
-
     const income = parseFloat(data.annualIncome)
     const expenses = parseFloat(data.annualExpenses)
     const savings = income - expenses
     const savingsRate = (savings / income) * 100
     const buffer = parseFloat(data.savingsBuffer) || 0
     const debt = parseFloat(data.debt) || 0
-
-    // Simple scoring logic
-    let scoreValue = 50 // Base score
-
-    // Savings rate bonus
-    if (savingsRate >= 20) scoreValue += 20
-    else if (savingsRate >= 10) scoreValue += 10
-    else if (savingsRate < 0) scoreValue -= 20
-
-    // Emergency fund bonus
-    const monthlyExpenses = expenses / 12
-    const emergencyMonths = buffer / monthlyExpenses
-    if (emergencyMonths >= 6) scoreValue += 20
-    else if (emergencyMonths >= 3) scoreValue += 10
-
-    // Debt penalty
-    const debtToIncome = debt / income
-    if (debtToIncome > 0.5) scoreValue -= 20
-    else if (debtToIncome > 0.3) scoreValue -= 10
-
-    setScore(Math.min(100, Math.max(0, scoreValue)))
+    let s = 50
+    if (savingsRate >= 20) s += 20
+    else if (savingsRate >= 10) s += 10
+    else if (savingsRate < 0) s -= 20
+    const monthlyExp = expenses / 12
+    const emergencyMonths = buffer / monthlyExp
+    if (emergencyMonths >= 6) s += 20
+    else if (emergencyMonths >= 3) s += 10
+    const dti = debt / income
+    if (dti > 0.5) s -= 20
+    else if (dti > 0.3) s -= 10
+    setScore(Math.min(100, Math.max(0, s)))
   }
 
-  const getScoreColor = () => {
-    if (!score) return 'text-gray-400'
-    if (score >= 75) return 'text-green-600'
-    if (score >= 50) return 'text-yellow-600'
-    return 'text-red-600'
-  }
+  const scoreColor = !score ? '#64748b' : score >= 75 ? '#34d399' : score >= 50 ? '#f59e0b' : '#f87171'
+  const scoreLabel = !score ? '—' : score >= 75 ? 'Excellent' : score >= 50 ? 'Good' : 'Caution'
 
-  const getScoreLabel = () => {
-    if (!score) return 'No Score'
-    if (score >= 75) return 'Excellent'
-    if (score >= 50) return 'Good'
-    return 'Caution'
-  }
+  const fields = [
+    { name: 'annualIncome',    label: 'Annual income' },
+    { name: 'annualExpenses',  label: 'Annual expenses' },
+    { name: 'savingsBuffer',   label: 'Savings buffer' },
+    { name: 'debt',            label: 'Total debt' },
+  ]
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Finance Health Score</h2>
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <h2 className="text-sm font-semibold text-white">Finance health score</h2>
+          <p className="text-xs text-slate-500 mt-0.5">Enter your details to personalize signals</p>
+        </div>
+        {score !== null && (
+          <div className="text-right">
+            <p className="text-2xl font-bold" style={{ color: scoreColor }}>{Math.round(score)}</p>
+            <p className="text-xs" style={{ color: scoreColor }}>{scoreLabel}</p>
+          </div>
+        )}
+      </div>
 
       {score !== null && (
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Your Health Score</p>
-              <p className={`text-4xl font-bold ${getScoreColor()}`}>{score}</p>
-              <p className="text-sm text-gray-600 mt-1">{getScoreLabel()}</p>
-            </div>
-            <div className="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center">
-              <span className={`text-2xl font-bold ${getScoreColor()}`}>{Math.round(score)}%</span>
-            </div>
-          </div>
+        <div className="mb-4 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{ width: `${score}%`, background: scoreColor }}
+          />
         </div>
       )}
 
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Annual Income</label>
-          <input
-            type="number"
-            name="annualIncome"
-            placeholder="₹"
-            value={finance.annualIncome}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Annual Expenses</label>
-          <input
-            type="number"
-            name="annualExpenses"
-            placeholder="₹"
-            value={finance.annualExpenses}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Savings Buffer</label>
-          <input
-            type="number"
-            name="savingsBuffer"
-            placeholder="₹"
-            value={finance.savingsBuffer}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Total Debt</label>
-          <input
-            type="number"
-            name="debt"
-            placeholder="₹"
-            value={finance.debt}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
-          />
-        </div>
+      <div className="grid grid-cols-2 gap-3">
+        {fields.map(({ name, label }) => (
+          <div key={name}>
+            <label className="block text-xs text-slate-500 mb-1">{label}</label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-500">₹</span>
+              <input
+                type="number"
+                name={name}
+                value={finance[name]}
+                onChange={handleChange}
+                placeholder="0"
+                className="w-full pl-6 pr-3 py-2 bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg focus:outline-none focus:border-slate-500 placeholder-slate-600"
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

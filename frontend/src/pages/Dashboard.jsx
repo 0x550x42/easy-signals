@@ -9,7 +9,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchAllSignals()
-    // Refresh every 5 minutes
     const interval = setInterval(fetchAllSignals, 5 * 60 * 1000)
     return () => clearInterval(interval)
   }, [])
@@ -32,10 +31,10 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-3 border-slate-700 border-t-gold-500 mx-auto mb-6"></div>
-          <p className="text-xl text-slate-300 font-500 tracking-wide">Analyzing market signals...</p>
+          <div className="w-10 h-10 border-2 border-slate-700 border-t-gold-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-400 text-sm">Analyzing market signals...</p>
         </div>
       </div>
     )
@@ -43,14 +42,14 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-lg text-red-400 mb-6 font-500">{error}</p>
+          <p className="text-red-400 text-sm mb-4">{error}</p>
           <button
             onClick={fetchAllSignals}
-            className="px-8 py-3 bg-gradient-to-r from-gold-600 to-gold-500 text-white rounded-xl hover:from-gold-500 hover:to-gold-400 font-semibold transition-all duration-200 shadow-lg shadow-gold-600/20 hover:shadow-gold-600/40 hover:scale-105 active:scale-95"
+            className="px-5 py-2 bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg hover:bg-slate-700 transition-colors"
           >
-            Try Again
+            Try again
           </button>
         </div>
       </div>
@@ -58,25 +57,32 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900">
-      <header className="border-b border-slate-800/50 sticky top-0 z-10 backdrop-blur-md bg-slate-950/90">
-        <div className="max-w-7xl mx-auto px-8 py-8 flex justify-between items-center">
+    <div className="min-h-screen bg-slate-950">
+      <header className="border-b border-slate-800 sticky top-0 z-10 bg-slate-950/95 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
           <div>
-            <h1 className="text-5xl font-display font-900 text-white mb-2 tracking-tight">Should I Buy/Do This Now?</h1>
-            <p className="text-sm text-slate-400 font-400 tracking-wide">
-              Real-time market signals • Last updated {lastUpdated?.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+            <h1 className="text-xl font-display font-semibold text-white tracking-tight">
+              Should I buy/do this now?
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Real-time market signals · Last updated{' '}
+              {lastUpdated?.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
             </p>
           </div>
           <button
             onClick={fetchAllSignals}
-            className="px-6 py-3 bg-gradient-to-r from-gold-600 to-gold-500 text-white rounded-xl hover:from-gold-500 hover:to-gold-400 text-sm font-semibold transition-all duration-200 whitespace-nowrap shadow-lg shadow-gold-600/20 hover:shadow-gold-600/40 hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 px-4 py-2 bg-transparent border border-slate-700 text-slate-400 text-xs rounded-lg hover:bg-slate-800 hover:text-slate-200 transition-all"
           >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M23 4v6h-6M1 20v-6h6"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
             Refresh
           </button>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-8 py-16">
+      <main className="max-w-7xl mx-auto px-6 py-10">
         {signals && <SignalGrid signals={signals} />}
       </main>
     </div>
