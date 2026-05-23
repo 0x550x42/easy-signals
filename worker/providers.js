@@ -5,7 +5,7 @@
 // Supported values: "openai" | "claude" | "gemini"
 // Default: "openai"
 
-// ─── OpenAI (GPT-4o with web search) ─────────────────────────────
+// ─── OpenAI (GPT-4o) ─────────────────────────────────────────────
 const openai = {
   name: 'OpenAI GPT-4o',
 
@@ -18,28 +18,29 @@ const openai = {
       },
       body: JSON.stringify({
         model: 'gpt-4o',
-        messages: [{ role: 'user', content: prompt }],
-        response_format: { type: 'json_object' },
-        // Web search via OpenAI tools
-        tools: [{
-          type: 'function',
-          function: {
-            name: 'search',
-            description: 'Search the web for current information',
-            parameters: {
-              type: 'object',
-              properties: { query: { type: 'string' } },
-              required: ['query'],
-            },
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a financial signal generator. Always respond with valid JSON only. No markdown, no explanation, no code fences. Just raw JSON.',
           },
-        }],
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        response_format: { type: 'json_object' },
+        max_tokens: 2500,
+        temperature: 0.3,
       }),
     }
   },
 
   parseResponse(data) {
     const content = data.choices?.[0]?.message?.content
-    if (!content) throw new Error('OpenAI: empty response')
+    if (!content) {
+      const reason = data.choices?.[0]?.finish_reason
+      throw new Error(`OpenAI: empty response. finish_reason: ${reason}. Full: ${JSON.stringify(data)}`)
+    }
     return JSON.parse(content)
   },
 }
