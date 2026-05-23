@@ -1,12 +1,11 @@
 export const calculateTravelCosts = async (tripData) => {
 	const { startDate, endDate, travelers, tripType } = tripData
 
-	// Calculate number of days
 	const start = new Date(startDate)
 	const end = new Date(endDate)
-	const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+	const nights = Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24)))
 
-	// Base costs by trip type (per person, per day)
+	// Per person costs (INR)
 	const costs = {
 		budget: {
 			flights: 3000,
@@ -31,19 +30,16 @@ export const calculateTravelCosts = async (tripData) => {
 		}
 	}
 
-	const baseCosts = costs[tripType] || costs.mid
+	const base = costs[tripType] || costs.mid
 
-	// Calculate estimates
-	const flights = baseCosts.flights * travelers
-	const hotels = baseCosts.hotel * nights * travelers
-	const food = baseCosts.food * nights * travelers
-	const transport = baseCosts.transport * nights * travelers
-	const activities = baseCosts.activities * nights * travelers
-	const insurance = (flights + hotels) * 0.05 // 5% insurance
-	const currency = (flights + hotels) * 0.02 // 2% currency exchange buffer
-
-	const total =
-		flights + hotels + food + transport + activities + insurance + currency
+	const flights    = Math.round(base.flights * travelers)
+	const hotels     = Math.round(base.hotel * nights * travelers)
+	const food       = Math.round(base.food * nights * travelers)
+	const transport  = Math.round(base.transport * nights * travelers)
+	const activities = Math.round(base.activities * nights * travelers)
+	const insurance  = Math.round((flights + hotels) * 0.05)
+	const currency   = Math.round((flights + hotels) * 0.02)
+	const total      = flights + hotels + food + transport + activities + insurance + currency
 
 	return {
 		flights,
@@ -55,13 +51,7 @@ export const calculateTravelCosts = async (tripData) => {
 		currency,
 		total,
 		nights,
-		breakdown: {
-			accommodation: hotels,
-			meals: food,
-			activities: activities,
-			transport: transport,
-			insurance: insurance,
-			currency: currency
-		}
+		travelers: Number(travelers),
+		tripType,
 	}
 }

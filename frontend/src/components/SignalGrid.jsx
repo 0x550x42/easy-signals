@@ -22,18 +22,18 @@ const SIGNAL_STYLES = {
 }
 
 const SIGNAL_CONFIG = {
-  gold:            { icon: 'coins',        label: 'Gold jewelry',         category: 'Metals' },
-  silver:          { icon: 'droplet',      label: 'Silver',               category: 'Metals' },
-  nifty:           { icon: 'chart-line',   label: 'Nifty / Sensex',       category: 'Stocks' },
-  realEstate:      { icon: 'building',     label: 'Real estate',          category: 'Major Purchase' },
-  fd:              { icon: 'building-bank',label: 'Fixed deposit',        category: 'Savings' },
-  goldScheme:      { icon: 'coin',         label: 'Gold savings scheme',  category: 'Investment' },
-  personalLoan:    { icon: 'credit-card',  label: 'Personal loan / EMI',  category: 'Borrowing' },
-  vehiclePurchase: { icon: 'car',          label: 'Vehicle purchase',     category: 'Major Purchase' },
-  healthInsurance: { icon: 'heart',        label: 'Health insurance',     category: 'Insurance' },
-  domesticTravel:  { icon: 'plane',        label: 'Domestic travel',      category: 'Spending' },
-  crypto:          { icon: 'currency-bitcoin', label: 'Bitcoin / Crypto', category: 'Alternative' },
-  inrStrength:     { icon: 'world',        label: 'INR strength (travel)',category: 'Currency' },
+  gold:            { icon: 'coins',           label: 'Gold jewelry',         category: 'Precious Metals' },
+  silver:          { icon: 'droplet',         label: 'Silver',               category: 'Precious Metals' },
+  goldScheme:      { icon: 'coin',            label: 'Gold savings scheme',  category: 'Precious Metals' },
+  nifty:           { icon: 'chart-line',      label: 'Nifty / Sensex',       category: 'Markets' },
+  crypto:          { icon: 'currency-bitcoin',label: 'Bitcoin / Crypto',     category: 'Markets' },
+  fd:              { icon: 'building-bank',   label: 'Fixed deposit',        category: 'Savings & Borrowing' },
+  personalLoan:    { icon: 'credit-card',     label: 'Personal loan / EMI',  category: 'Savings & Borrowing' },
+  realEstate:      { icon: 'building',        label: 'Real estate',          category: 'Big Purchases' },
+  vehiclePurchase: { icon: 'car',             label: 'Vehicle purchase',     category: 'Big Purchases' },
+  domesticTravel:  { icon: 'plane',           label: 'Domestic travel',      category: 'Travel & Currency' },
+  inrStrength:     { icon: 'world',           label: 'INR strength',         category: 'Travel & Currency' },
+  healthInsurance: { icon: 'heart',           label: 'Health insurance',     category: 'Insurance' },
 }
 
 const ICON_MAP = {
@@ -100,17 +100,13 @@ const ICON_MAP = {
 }
 
 const ACCENT_COLORS = {
-  Metals:          '#f59e0b',
-  Stocks:          '#34d399',
-  Investment:      '#a78bfa',
-  Savings:         '#60a5fa',
-  'Major Purchase':'#fb923c',
-  Borrowing:       '#f87171',
-  Spending:        '#38bdf8',
-  Insurance:       '#4ade80',
-  Alternative:     '#e879f9',
-  Currency:        '#fbbf24',
-  Other:           '#94a3b8',
+  'Precious Metals':     '#f59e0b',
+  'Markets':             '#34d399',
+  'Savings & Borrowing': '#60a5fa',
+  'Big Purchases':       '#fb923c',
+  'Travel & Currency':   '#38bdf8',
+  'Insurance':           '#4ade80',
+  'Other':               '#94a3b8',
 }
 
 const SignalCard = ({ id, decision, reason, price, change }) => {
@@ -180,8 +176,13 @@ export default function SignalGrid({ signals }) {
   })
 
   const categoryOrder = [
-    'Metals','Stocks','Investment','Savings','Major Purchase',
-    'Borrowing','Spending','Insurance','Alternative','Currency','Other',
+    'Precious Metals',
+    'Markets',
+    'Savings & Borrowing',
+    'Big Purchases',
+    'Travel & Currency',
+    'Insurance',
+    'Other',
   ]
 
   const orderedCategories = categoryOrder.filter((cat) => categories[cat])
