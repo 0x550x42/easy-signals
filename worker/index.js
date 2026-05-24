@@ -50,6 +50,9 @@ async function fetchSignalsFromLLM(env) {
     throw new Error('LLM returned invalid signal shape')
   }
 
+  // Override LLM-generated timestamp with actual server time
+  parsed.generatedAt = new Date().toISOString()
+
   console.log(`[signals] Got ${parsed.signals.length} signals from ${provider.name}`)
   return parsed
 }
