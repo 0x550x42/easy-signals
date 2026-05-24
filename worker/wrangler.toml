@@ -13,7 +13,7 @@ crons = ["0 */6 * * *"]
 # Paste the returned id below
 [[kv_namespaces]]
 binding = "SIGNALS_KV"
-id      = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id      = "9d26acabfef14c5d8d3a6d2967705061"
 
 # ─── Secrets (never put real values here) ─────────────────────────
 # Set each with: npx wrangler secret put SECRET_NAME
@@ -22,3 +22,18 @@ id      = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
 #   npx wrangler secret put LLM_API_KEY    → your API key
 #   npx wrangler secret put REFRESH_TOKEN  → any random string you choose
 #                                            (used to manually seed KV after deploy)
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
