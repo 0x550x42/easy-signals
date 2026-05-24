@@ -26,7 +26,7 @@ household decision makers with no market knowledge.
 
 ## Signal IDs (must match exactly in prompt and frontend)
 gold, silver, goldScheme, nifty, crypto, fd,
-personalLoan, realEstate, vehiclePurchase,
+personalLoan, realEstate, petrolCar, dieselCar, electricCar, hybridCar,
 domesticTravel, inrStrength, healthInsurance
 
 ## Worker endpoints
