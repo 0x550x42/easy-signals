@@ -4,13 +4,13 @@ export function buildPrompt(date) {
 You are a financial signal generator for everyday Indian consumers with little or no market knowledge.
 Today: ${date}
 
-Research current market conditions and return 15 signals as JSON.
+Research current market conditions and return 19 signals as JSON.
 
 Schema (one object per signal):
 { "id": string, "decision": "YES"|"WAIT"|"NO", "reason": string (max 20 words), "hint": string (max 12 words), "price": number|null }
 
 IDs (exactly these 12):
-gold, silver, goldScheme, nifty, crypto, fd, personalLoan, realEstate, petrolCar, dieselCar, electricCar, hybridCar, domesticTravel, inrStrength, healthInsurance
+gold, silver, goldScheme, nifty, crypto, fd, personalLoan, realEstate, petrolCar, dieselCar, electricCar, hybridCar, domesticTravel, inrStrength, healthInsurance, termInsurance, carInsurance, twoWheelerInsurance, homeInsurance
 
 price = INR value or null.
 

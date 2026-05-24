@@ -18,7 +18,11 @@ const SIGNAL_CONFIG = {
   hybridCar:       { label: 'Hybrid car',                        category: 'Big Purchases',       icon: 'car' },
   domesticTravel:  { label: 'Domestic travel',                  category: 'Travel & Currency',   icon: 'plane' },
   inrStrength:     { label: 'Dollar vs Rupee (travel abroad?)', category: 'Travel & Currency',   icon: 'globe' },
-  healthInsurance: { label: 'Health insurance',                 category: 'Insurance',           icon: 'heart' },
+  healthInsurance:      { label: 'Health insurance',             category: 'Insurance',           icon: 'heart' },
+  termInsurance:        { label: 'Term life insurance',          category: 'Insurance',           icon: 'heart' },
+  carInsurance:         { label: 'Car insurance',                category: 'Insurance',           icon: 'car' },
+  twoWheelerInsurance:  { label: 'Two-wheeler insurance',        category: 'Insurance',           icon: 'car' },
+  homeInsurance:        { label: 'Home insurance',               category: 'Insurance',           icon: 'building' },
 }
 
 const CATEGORIES = {
@@ -51,7 +55,11 @@ const ACTION_HINTS = {
   hybridCar:       { YES: 'Solid choice right now — best of both worlds.', NO: 'Full EVs or petrol may offer better value currently.', WAIT: 'A few more models launching soon — worth waiting.' },
   domesticTravel:  { YES: 'Good time to book.', NO: 'Costs are high — consider waiting or booking far in advance.', WAIT: 'Book closer to your date for better deals.' },
   inrStrength:     { YES: 'Good time — rupee is holding up well.', NO: 'Going abroad will cost more than usual right now.', WAIT: 'Check again closer to your travel date.' },
-  healthInsurance: { YES: 'Buy or renew now — good time to lock in rates.', NO: 'Review existing coverage before buying new.', WAIT: 'Compare a few plans before deciding — do not rush.' },
+  healthInsurance:     { YES: 'Buy or renew now — good time to lock in rates.', NO: 'Review existing coverage before buying new.', WAIT: 'Compare a few plans before deciding — do not rush.' },
+  termInsurance:       { YES: 'Buy now — premiums are stable and coverage is strong.', NO: 'Review your existing cover before adding more.', WAIT: 'Compare a few insurers — rates may vary soon.' },
+  carInsurance:        { YES: 'Good time to renew or switch — competitive rates available.', NO: 'Stick with your current insurer for now.', WAIT: 'Check renewal date — switch only if saving meaningfully.' },
+  twoWheelerInsurance: { YES: 'Renew now — good deals available, do not let it lapse.', NO: 'Your current policy is likely fine — no rush to switch.', WAIT: 'Compare online before renewing — prices vary widely.' },
+  homeInsurance:       { YES: 'Great time to buy — low premiums, high peace of mind.', NO: 'Not urgent — assess your risk before committing.', WAIT: 'Compare bundled home + content plans before deciding.' },
 }
 
 // ─── SVG icons ────────────────────────────────────────────────────

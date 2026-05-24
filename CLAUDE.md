@@ -27,7 +27,8 @@ household decision makers with no market knowledge.
 ## Signal IDs (must match exactly in prompt and frontend)
 gold, silver, goldScheme, nifty, crypto, fd,
 personalLoan, realEstate, petrolCar, dieselCar, electricCar, hybridCar,
-domesticTravel, inrStrength, healthInsurance
+domesticTravel, inrStrength,
+healthInsurance, termInsurance, carInsurance, twoWheelerInsurance, homeInsurance
 
 ## Worker endpoints
 - GET  /signals — returns cached KV JSON
