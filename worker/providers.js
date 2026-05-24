@@ -17,7 +17,7 @@ const openai = {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
@@ -29,7 +29,7 @@ const openai = {
           },
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 2500,
+        max_tokens: 1200,
         temperature: 0.3,
       }),
     }

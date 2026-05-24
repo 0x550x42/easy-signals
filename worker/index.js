@@ -42,6 +42,7 @@ async function fetchSignalsFromLLM(env) {
   }
 
   const data   = await res.json()
+  console.log('[LLM raw response]', JSON.stringify(data))
   const parsed = provider.parseResponse(data)
 
   // Validate shape

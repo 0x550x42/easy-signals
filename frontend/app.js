@@ -190,13 +190,11 @@ async function loadSignals() {
   const loading = document.getElementById('loading')
   const error   = document.getElementById('error')
   const content = document.getElementById('content')
-  const icon    = document.getElementById('refresh-icon')
   const updated = document.getElementById('last-updated')
 
   loading.classList.remove('hidden')
   error.classList.add('hidden')
   content.classList.add('hidden')
-  icon.classList.add('spinning')
 
   try {
     const res  = await fetch(WORKER_URL)
@@ -206,10 +204,10 @@ async function loadSignals() {
     document.getElementById('best-bets').innerHTML  = renderBestBets(data.signals)
     document.getElementById('signal-grid').innerHTML = renderGrid(data.signals)
 
-    const now = new Date()
-    const time = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
-    const date = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })
-    updated.textContent = `${date} · Updated at ${time}`
+    const refreshed = new Date(data.generatedAt)
+    const time = refreshed.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+    const date = refreshed.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })
+    updated.textContent = `Signals last refreshed: ${date} · ${time}`
 
     loading.classList.add('hidden')
     content.classList.remove('hidden')
@@ -218,8 +216,6 @@ async function loadSignals() {
     document.getElementById('error-msg').textContent = 'Unable to load signals. Please try again.'
     loading.classList.add('hidden')
     error.classList.remove('hidden')
-  } finally {
-    icon.classList.remove('spinning')
   }
 }
 

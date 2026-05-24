@@ -51,19 +51,19 @@ curl -X POST https://signals-worker.ud0103.workers.dev/refresh \
 ## Todo list
 
 ### Token Optimisation
-- [ ] `worker/prompt.js` — remove verbose example JSON, replace with compact
+- [x] `worker/prompt.js` — remove verbose example JSON, replace with compact
       schema definition, tighten rules section by ~40%
-- [ ] `worker/prompt.js` — add word limits: reason max 20 words, hint max 12 words
-- [ ] `worker/providers.js` — lower max_tokens from 2500 to 1200
-- [ ] `worker/prompt.js` + `frontend/app.js` — drop priceLabel field from prompt
+- [x] `worker/prompt.js` — add word limits: reason max 20 words, hint max 12 words
+- [x] `worker/providers.js` — lower max_tokens from 2500 to 1200
+- [x] `worker/prompt.js` + `frontend/app.js` — drop priceLabel field from prompt
       schema, infer label from signal id in frontend instead
-- [ ] `worker/providers.js` — switch model from gpt-4o to gpt-4o-mini
+- [x] `worker/providers.js` — switch model from gpt-4o to gpt-4o-mini
 
 ### UI
-- [ ] `frontend/index.html` + `frontend/app.js` — remove refresh button from header
-- [ ] `frontend/app.js` — replace "Updated at [browser time]" with
+- [x] `frontend/index.html` + `frontend/app.js` — remove refresh button from header
+- [x] `frontend/app.js` — replace "Updated at [browser time]" with
       "Signals last refreshed: [KV write time]" using data.generatedAt
 
 ### Logging
-- [ ] `worker/index.js` — add console.log('[LLM raw response]', JSON.stringify(data))
+- [x] `worker/index.js` — add console.log('[LLM raw response]', JSON.stringify(data))
       after res.json() and before provider.parseResponse(data)
