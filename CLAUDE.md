@@ -25,10 +25,13 @@ household decision makers with no market knowledge.
 - `frontend/style.css` — dark theme, card layout
 
 ## Signal IDs (must match exactly in prompt and frontend)
-gold, silver, goldScheme, nifty, crypto, fd,
-personalLoan, realEstate, petrolCar, dieselCar, electricCar, hybridCar,
-domesticTravel, inrStrength,
-healthInsurance, termInsurance, carInsurance, twoWheelerInsurance, homeInsurance
+gold, silver, goldScheme, sovereignGoldBond, digitalGold,
+nifty, crypto, sipTiming, ipoInvesting, usStocks,
+fd, personalLoan, homeLoan, ppf, recurringDeposit,
+realEstate, petrolCar, dieselCar, electricCar, hybridCar, smartphone, laptop, airConditioner,
+domesticTravel, internationalTravel, flightBooking, inrStrength,
+healthInsurance, termInsurance, carInsurance, twoWheelerInsurance, homeInsurance,
+elss, nps, postOfficeSavings
 
 ## Worker endpoints
 - GET  /signals — returns cached KV JSON
