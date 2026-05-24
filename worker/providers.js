@@ -29,7 +29,7 @@ const openai = {
           },
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 1200,
+        max_tokens: 2500,
         temperature: 0.3,
       }),
     }
